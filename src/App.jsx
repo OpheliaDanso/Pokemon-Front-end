@@ -1,3 +1,7 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+import LandingPage from "./Components/Landingpage.jsx";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
@@ -9,7 +13,10 @@ import "./index.css";
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div
+        className="App flex flex-col"
+        style={{ backgroundImage: "url('our-background.jpg')" }}
+      >
         <Navbar />
         <Routes>
           <Route path="/" element={<PokemonList />} />
