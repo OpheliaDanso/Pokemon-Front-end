@@ -1,25 +1,71 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-function SinglePokemon() {
-  const { pokemonId } = useParams();
-  const [pokemon, setPokemon] = useState(null);
+function PokemonList() {
+  const [pokemons, setPokemons] = useState([]);
+  const [nextUrl, setNextUrl] = useState("");
+  const [prevUrl, setPrevUrl] = useState("");
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
-      .then((response) => response.json())
-      .then((data) => setPokemon(data))
-      .catch((error) => console.error("Failed to fetch data", error));
-  }, [pokemonId]);
+    fetchPokemons("https://pokeapi.co/api/v2/pokemon/");
+  }, []);
 
-  if (!pokemon) return <div>Loading...</div>;
+  const fetchPokemons = async (url) => {
+    try {
+      const response = await axios.get(url);
+      setNextUrl(response.data.next);
+      setPrevUrl(response.data.previous);
+      const pokemonDetails = await Promise.all(
+        response.data.results.map(async (pokemon) => {
+          const pokemonRecord = await axios.get(pokemon.url);
+          return pokemonRecord.data;
+        })
+      );
+      setPokemons(pokemonDetails.slice(0, 12)); // Only store up to 12 Pokémon at once
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
-    <div>
-      <h1>{pokemon.name}</h1>
-      <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+    <div className="container mx-auto p-4">
+      <div className="grid grid-cols-6 gap-4">
+        {pokemons.map((pokemon) => (
+          <Link
+            to={`/pokemon/${pokemon.id}`}
+            key={pokemon.id}
+            className="col-span-2 flex flex-col items-center"
+          >
+            <img
+              src={pokemon.sprites.front_default}
+              alt={pokemon.name}
+              className="w-20 h-20"
+            />
+            <p>{pokemon.name}</p>
+          </Link>
+        ))}
+      </div>
+      <div className="flex justify-between mt-4">
+        {prevUrl && (
+          <button
+            onClick={() => fetchPokemons(prevUrl)}
+            className="btn btn-primary"
+          >
+            Previous
+          </button>
+        )}
+        {nextUrl && (
+          <button
+            onClick={() => fetchPokemons(nextUrl)}
+            className="btn btn-primary"
+          >
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 }
 
-export default SinglePokemon;
+export default PokemonList;

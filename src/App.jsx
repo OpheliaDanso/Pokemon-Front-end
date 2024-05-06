@@ -8,28 +8,16 @@ import "./index.css";
 
 function App() {
   return (
-    <div
-      className="App flex flex-col"
-      style={{ backgroundImage: "url('our-background.jpg')" }}
-    >
-      <Navbar />
-      <Router>
+    <Router>
+      <div className="App">
+        <Navbar />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <main className="flex-grow">
-                <h1>Landing Page</h1>
-                <PokemonList />
-              </main>
-            }
-          />
-          {/* Assuming you want a route for SinglePokemon, you might add something like this: */}
+          <Route path="/" element={<PokemonList />} />
           <Route path="/pokemon/:pokemonId" element={<SinglePokemon />} />
         </Routes>
-      </Router>
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

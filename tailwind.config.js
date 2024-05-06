@@ -7,7 +7,10 @@ module.exports = {
         montserrat: ["Montserrat", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
+      colors: {
+        "light-yellow": "#fafa72",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

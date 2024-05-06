@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Import Link
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 function PokemonList() {
   const [pokemons, setPokemons] = useState([]);
@@ -10,45 +11,60 @@ function PokemonList() {
     fetchPokemons("https://pokeapi.co/api/v2/pokemon/");
   }, []);
 
-  const fetchPokemons = (url) => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setNextUrl(data.next);
-        setPrevUrl(data.previous);
-        return Promise.all(
-          data.results.map((pokemon) =>
-            fetch(pokemon.url).then((res) => res.json())
-          )
-        );
-      })
-      .then((pokemonDetails) => {
-        setPokemons(pokemonDetails.slice(0, 12)); // Limit to 12 pokemons
-      })
-      .catch((error) => {
-        console.error("Error loading the pokemons:", error);
-      });
+  const fetchPokemons = async (url) => {
+    try {
+      const response = await axios.get(url);
+      setNextUrl(response.data.next);
+      setPrevUrl(response.data.previous);
+      const pokemonDetails = await Promise.all(
+        response.data.results.map(async (pokemon) => {
+          const pokemonRecord = await axios.get(pokemon.url);
+          return pokemonRecord.data;
+        })
+      );
+      setPokemons(pokemonDetails.slice(0, 12)); // Only store up to 12 Pokémon at once
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   return (
     <div className="container mx-auto p-4">
-      <div className="bg-white bg-opacity-75 shadow-xl rounded-lg p-5">
-        <div className="grid grid-cols-6 grid-rows-2 gap-4">
-          {pokemons.map((pokemon) => (
-            <Link
-              to={`/pokemon/${pokemon.id}`}
-              key={pokemon.id}
-              className="col-span-1 flex flex-col items-center"
-            >
-              <img
-                src={pokemon.sprites.front_default}
-                alt={pokemon.name}
-                className="h-20 w-20"
-              />
-              <p className="text-center mt-2">{pokemon.name}</p>
-            </Link>
-          ))}
-        </div>
+      <div className="grid grid-cols-6 gap-4">
+        {pokemons.map((pokemon) => (
+          <Link
+            to={`/pokemon/${pokemon.id}`}
+            key={pokemon.id}
+            className="col-span-2 flex flex-col items-center"
+          >
+            <img
+              src={pokemon.sprites.front_default}
+              alt={pokemon.name}
+              className="w-32 h-32 object-cover"
+            />
+            <p className="font-roboto text-light-yellow text-xs mt-2">
+              {pokemon.name}
+            </p>
+          </Link>
+        ))}
+      </div>
+      <div className="flex justify-between mt-4">
+        {prevUrl && (
+          <button
+            onClick={() => fetchPokemons(prevUrl)}
+            className="btn btn-primary"
+          >
+            Previous
+          </button>
+        )}
+        {nextUrl && (
+          <button
+            onClick={() => fetchPokemons(nextUrl)}
+            className="btn btn-primary"
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );
