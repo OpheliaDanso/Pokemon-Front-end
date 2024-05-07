@@ -8,6 +8,7 @@ import Navbar from "./Components/Navbar";
 import PokemonList from "./Components/PokemonList";
 import SinglePokemon from "./Components/SinglePokemon";
 import Footer from "./Components/Footer";
+import Fighterspage from "./Components/Fighterspage.jsx";
 import "./index.css";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PokemonList />} />
           <Route path="/pokemon/:pokemonId" element={<SinglePokemon />} />
+          <Route path="/battle" element={<Fighterspage />} />
         </Routes>
         <Footer />
       </div>
