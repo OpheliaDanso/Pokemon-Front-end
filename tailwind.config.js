@@ -6,9 +6,11 @@ module.exports = {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
+        mono: ["Roboto Mono", "monospace"],
       },
       colors: {
         "light-yellow": "#fafa72",
+        "custom-yellow": "#ffbd59",
       },
     },
   },
