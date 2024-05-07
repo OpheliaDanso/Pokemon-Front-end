@@ -9,6 +9,7 @@ import PokemonList from "./Components/PokemonList";
 import SinglePokemon from "./Components/SinglePokemon";
 import AboutUs from "./Components/AboutUs.jsx"; // Ensure this is the correct path
 import Footer from "./Components/Footer";
+import Fighterspage from "./Components/Fighterspage.jsx";
 import "./index.css";
 
 function App() {
@@ -22,8 +23,10 @@ function App() {
         <Routes>
           <Route path="/" element={<PokemonList />} />
           <Route path="/pokemon/:pokemonId" element={<SinglePokemon />} />
+          <Route path="/battle" element={<Fighterspage />} />
           <Route path="/about-us" element={<AboutUs />} />{" "}
           {/* Add this line for the About Us page */}
+
         </Routes>
         <Footer />
       </div>
