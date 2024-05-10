@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function PokemonList() {
+function PokemonList({ onSelectPokemon }) {
   const [pokemons, setPokemons] = useState([]);
   const [nextUrl, setNextUrl] = useState("");
   const [prevUrl, setPrevUrl] = useState("");
@@ -32,20 +32,25 @@ function PokemonList() {
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-6 gap-4">
         {pokemons.map((pokemon) => (
-          <Link
-            to={`/pokemon/${pokemon.id}`}
+          <div
             key={pokemon.id}
             className="col-span-2 flex flex-col items-center"
           >
-            <img
-              src={pokemon.sprites.front_default}
-              alt={pokemon.name}
-              className="w-32 h-32 object-cover"
-            />
-            <p className="font-roboto text-light-yellow text-xs mt-2">
-              {pokemon.name}
-            </p>
-          </Link>
+            <Link
+              to={`/pokemon/${pokemon.id}`}
+              className="flex flex-col items-center"
+              onClick={() => onSelectPokemon(pokemon)}
+            >
+              <img
+                src={pokemon.sprites.front_default}
+                alt={pokemon.name}
+                className="w-32 h-32 object-cover"
+              />
+              <p className="font-roboto text-light-yellow text-xs mt-2">
+                {pokemon.name}
+              </p>
+            </Link>
+          </div>
         ))}
       </div>
       <div className="flex justify-between mt-4">

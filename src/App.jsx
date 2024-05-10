@@ -1,37 +1,46 @@
-import LandingPage from "./Components/Landingpage.jsx";
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import PokemonList from "./Components/PokemonList";
 import SinglePokemon from "./Components/SinglePokemon";
-import AboutUs from "./Components/AboutUs.jsx"; // Ensure this is the correct path
+import AboutUs from "./Components/AboutUs.jsx";
 import Footer from "./Components/Footer";
 import Fighterspage from "./Components/Fighterspage.jsx";
+import LandingPage from "./Components/Landingpage.jsx"; // Move this import here
 import "./index.css";
 import Image from "./assets/images/pokemonNew.webp";
+import LeaderBoard from "./Components/LeaderBoard.jsx";
+import { useState } from "react";
 
 function App() {
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+
   return (
-    <Router>
-      <div
-        className="App flex flex-col h-full"
-        style={{
-          backgroundImage: `url(${Image})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }} //here we need to correct source of our bg image
-      >
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<PokemonList />} />
-          <Route path="/pokemon/:pokemonId" element={<SinglePokemon />} />
-          <Route path="/battle" element={<Fighterspage />} />
-          <Route path="/about-us" element={<AboutUs />} />{" "}
-          {/* Add this line for the About Us page */}
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <div
+      className="App flex flex-col h-full"
+      style={{
+        backgroundImage: `url(${Image})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/pokemon"
+          element={<PokemonList onSelectPokemon={setSelectedPokemon} />}
+        />
+        <Route path="/pokemon/:pokemonId" element={<SinglePokemon />} />
+        <Route
+          path="/battle"
+          element={<Fighterspage selectedPokemon={selectedPokemon} />}
+        />
+        <Route path="/leaderboard" element={<LeaderBoard />} />
+        <Route path="/about-us" element={<AboutUs />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 }
 
