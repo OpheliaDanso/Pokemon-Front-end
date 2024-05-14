@@ -28,15 +28,19 @@ function PokemonList({ onSelectPokemon }) {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="bg-white bg-opacity-75 shadow-xl rounded-lg p-5">
-        <div className="grid grid-cols-6 gap-4">
+      <div className="bg-gray-800 bg-opacity-75 shadow-xl rounded-lg p-5">
+        <div className="flex justify-center align-middle text-light-yellow font-bold pt-8 pb-10 text-2xl">
+          <h1>CATCH YOUR POKEMON.... CHOOSE WISELY!</h1>
+        </div>
+        <div className="grid grid-cols-5 gap-4">
           {pokemons.map((pokemon) => (
             <Link
               to={`/pokemon/${pokemon.id}`}
               key={pokemon.id}
-              className="col-span-1"
+              className="col-span-1 hover:scale-110 duration-300 ease-in-out"
+              onClick={() => onSelectPokemon(pokemon)}
             >
-              <div className="flex flex-col items-center bg-white bg-opacity-50 shadow-md rounded-lg p-4">
+              <div className="flex flex-col items-center bg-white bg-opacity-50 shadow-md rounded-lg p-4 text-light-yellow ">
                 <img
                   src={pokemon.sprites.front_default}
                   alt={pokemon.name}
@@ -51,7 +55,7 @@ function PokemonList({ onSelectPokemon }) {
           {prevUrl && (
             <button
               onClick={() => fetchPokemons(prevUrl)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-red-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
             >
               Previous
             </button>
@@ -59,54 +63,12 @@ function PokemonList({ onSelectPokemon }) {
           {nextUrl && (
             <button
               onClick={() => fetchPokemons(nextUrl)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-red-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
             >
               Next
             </button>
           )}
         </div>
-
-      <div className="grid grid-cols-6 gap-4">
-        {pokemons.map((pokemon) => (
-          <div
-            key={pokemon.id}
-            className="col-span-2 flex flex-col items-center"
-          >
-            <Link
-              to={`/pokemon/${pokemon.id}`}
-              className="flex flex-col items-center"
-              onClick={() => onSelectPokemon(pokemon)}
-            >
-              <img
-                src={pokemon.sprites.front_default}
-                alt={pokemon.name}
-                className="w-32 h-32 object-cover"
-              />
-              <p className="font-roboto text-light-yellow text-xs mt-2">
-                {pokemon.name}
-              </p>
-            </Link>
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-between mt-4">
-        {prevUrl && (
-          <button
-            onClick={() => fetchPokemons(prevUrl)}
-            className="btn btn-primary"
-          >
-            Previous
-          </button>
-        )}
-        {nextUrl && (
-          <button
-            onClick={() => fetchPokemons(nextUrl)}
-            className="btn btn-primary"
-          >
-            Next
-          </button>
-        )}
-
       </div>
     </div>
   );

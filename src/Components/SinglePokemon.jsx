@@ -36,12 +36,12 @@ function SinglePokemon() {
 
   return (
     <div className="container mx-auto p-4 h-screen">
-      <div className="bg-white bg-opacity-80 shadow-lg rounded-lg p-5">
-        <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
+      <div className="bg-white bg-opacity-80 shadow-lg rounded-lg p-5 ">
+        <div className="grid grid-cols-2 items-center content-center">
           <img
-            src={pokemon.sprites.front_default}
+            src={pokemon.sprites.other.home.front_default}
             alt={pokemon.name}
-            className="block w-40 h-40 object-cover rounded-full mx-auto md:mx-0"
+            className="block w-40 h-40 object-cover rounded-full mx-auto md:mx-0 5xl"
           />
           <div className="flex-1">
             <h1 className="text-3xl font-bold text-center md:text-left">
