@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import PokemonImage from "../assets/images/pokemonNew.webp";
 import logo from "../assets/images/pk ball.png";
 import { Link } from "react-router-dom";
 
 function LandingPage() {
+  const [list, setList] = useState();
+
+  const handleChange = () => {
+    setList();
+  };
   return (
     <div
       className="h-screen flex flex-col items-center justify-end"
@@ -18,13 +23,17 @@ function LandingPage() {
         <h2>BATTLES</h2>
         <Link to="/pokemon">
           <div className="flex justify-center items-center w-10">
-            <input type="text" placeholder="Enter your name here..." />
+            <input
+              type="text"
+              value={list}
+              placeholder="Enter your name here..."
+              onChange={handleChange}
+            />
             <img
               src={logo} // corrected path to image
               alt="pokemon ball"
               width={100}
-              height={100}
-              onChange={() => {}} // removed onClick from image
+              height={100} // removed onClick from image
             />
           </div>
         </Link>

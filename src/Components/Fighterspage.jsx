@@ -49,14 +49,18 @@ function FightersPage({ selectedPokemon }) {
         {selectedPokemon && <RenderPokemon pokemon={selectedPokemon} />}
         {randomPokemon && <RenderPokemon pokemon={randomPokemon} />}
       </div>
-      <div className=" text-center ">
+      <div className=" text-center pd-">
         <button
           onClick={fight}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md"
+          className="px-4 py-2 bg-red-500 text-white rounded-md"
         >
-          Fight!
+          Ready Fight!!!
         </button>
-        {winner && <p className="mt-4 font-bold">{winner} wins!</p>}
+        {winner && (
+          <p className="mt-4 font-semibold text-2xl text-yellow-400">
+            {winner} wins!
+          </p>
+        )}
       </div>
     </div>
   );
@@ -64,21 +68,21 @@ function FightersPage({ selectedPokemon }) {
 
 const RenderPokemon = ({ pokemon }) => {
   return (
-    <div className="flex justify-center align-middle flex-col w-full lg:flex-row h-screen mt-20">
-      <div className="grid w-60 h-96 card bg-white bg-opacity-80 rounded-box place-items-center">
+    <div className="flex justify-center align-middle flex-col w-full lg:flex-row h-screen mt-10">
+      <div className="grid w-5/6  card bg-gray-500 bg-opacity-80 rounded-box place-items-center">
         <div className="col-span-1 flex flex-col items-center">
           <div className="relative">
-            <span className="absolute top-0 left-0 bg-gray-800 text-white px-2 py-1 rounded-md">
+            <span className="absolute bg-gray-800 text-white px-2 py-1 rounded-md">
               {pokemon.id}
             </span>
             <img
-              src={pokemon.sprites.front_default}
+              src={pokemon.sprites.other.home.front_default}
               alt={pokemon.name}
-              className="w-60 h-60 object-cover"
+              className="h-5/6"
             />
           </div>
-          <p className="font-roboto text-black text-xs mt-2">{pokemon.name}</p>
-          <p className="font-roboto text-black text-xs">
+          <p className="font-roboto text-yellow-400 mt-2">{pokemon.name}</p>
+          <p className="font-roboto text-yellow-400">
             {pokemon.types.map((type) => type.type.name).join(", ")}
           </p>
         </div>

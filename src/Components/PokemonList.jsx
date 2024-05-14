@@ -29,8 +29,12 @@ function PokemonList({ onSelectPokemon }) {
   return (
     <div className="container mx-auto p-4">
       <div className="bg-gray-800 bg-opacity-75 shadow-xl rounded-lg p-5">
-        <div className="flex justify-center align-middle text-light-yellow font-bold pt-8 pb-10 text-2xl">
-          <h1>CATCH YOUR POKEMON.... CHOOSE WISELY!</h1>
+        <div className="flex justify-center align-middle text-light-yellow font-bold pt-6 pb-6 text-2xl">
+          <h1>
+            CATCH YOUR POKEMON....
+            <br />
+            CHOOSE WISELY!
+          </h1>
         </div>
         <div className="grid grid-cols-5 gap-4">
           {pokemons.map((pokemon) => (

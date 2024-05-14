@@ -38,11 +38,6 @@ function AboutUs() {
               app!
             </p>
           </div>
-          <img
-            src={ophelia}
-            alt="Ophelia"
-            className="w-25 h-40 rounded-lg shadow-lg"
-          />
           <div className="bg-white bg-opacity-50 rounded-lg shadow-lg">
             <img
               src="./src/assets/images/AboutUs_op.jpeg"
