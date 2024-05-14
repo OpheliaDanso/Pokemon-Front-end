@@ -1,71 +1,75 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-function PokemonList() {
-  const [pokemons, setPokemons] = useState([]);
-  const [nextUrl, setNextUrl] = useState("");
-  const [prevUrl, setPrevUrl] = useState("");
+function SinglePokemon() {
+  const { pokemonId } = useParams();
+  const [pokemon, setPokemon] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchPokemons("https://pokeapi.co/api/v2/pokemon/");
-  }, []);
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPokemon(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching Pokémon details:", error);
+        setError(error);
+        setLoading(false);
+      });
+  }, [pokemonId]);
 
-  const fetchPokemons = async (url) => {
-    try {
-      const response = await axios.get(url);
-      setNextUrl(response.data.next);
-      setPrevUrl(response.data.previous);
-      const pokemonDetails = await Promise.all(
-        response.data.results.map(async (pokemon) => {
-          const pokemonRecord = await axios.get(pokemon.url);
-          return pokemonRecord.data;
-        })
-      );
-      setPokemons(pokemonDetails.slice(0, 12)); // Only store up to 12 Pokémon at once
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="flex justify-center items-center h-screen text-red-500">
+        Error loading details. Please try again later.
+      </div>
+    );
 
   return (
     <div className="container mx-auto p-4">
-      <div className="grid grid-cols-6 gap-4">
-        {pokemons.map((pokemon) => (
-          <Link
-            to={`/pokemon/${pokemon.id}`}
-            key={pokemon.id}
-            className="col-span-2 flex flex-col items-center"
-          >
-            <img
-              src={pokemon.sprites.front_default}
-              alt={pokemon.name}
-              className="w-20 h-20"
-            />
-            <p>{pokemon.name}</p>
-          </Link>
-        ))}
-      </div>
-      <div className="flex justify-between mt-4">
-        {prevUrl && (
-          <button
-            onClick={() => fetchPokemons(prevUrl)}
-            className="btn btn-primary"
-          >
-            Previous
-          </button>
-        )}
-        {nextUrl && (
-          <button
-            onClick={() => fetchPokemons(nextUrl)}
-            className="btn btn-primary"
-          >
-            Next
-          </button>
-        )}
+      <div className="bg-white bg-opacity-80 shadow-lg rounded-lg p-5">
+        <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
+          <img
+            src={pokemon.sprites.front_default}
+            alt={pokemon.name}
+            className="block w-40 h-40 object-cover rounded-full mx-auto md:mx-0"
+          />
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-center md:text-left">
+              {pokemon.name}
+            </h1>
+            <div className="mt-4">
+              <h2 className="text-xl font-semibold">Stats</h2>
+              <ul>
+                {pokemon.stats.map((stat) => (
+                  <li key={stat.stat.name} className="text-gray-700">
+                    {stat.stat.name.toUpperCase()}: {stat.base_stat}
+                  </li>
+                ))}
+              </ul>
+              <h2 className="text-xl font-semibold mt-4">Abilities</h2>
+              <ul>
+                {pokemon.abilities.map((ability) => (
+                  <li key={ability.ability.name} className="text-gray-700">
+                    {ability.ability.name.replace("-", " ").toUpperCase()}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-export default PokemonList;
+export default SinglePokemon;
