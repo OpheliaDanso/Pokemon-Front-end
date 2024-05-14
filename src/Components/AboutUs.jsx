@@ -1,4 +1,5 @@
 import React from "react";
+import ophelia from "../assets/images/AboutUs_op.jpeg";
 
 function AboutUs() {
   return (
@@ -36,7 +37,7 @@ function AboutUs() {
             </p>
           </div>
           <img
-            src="./src/assets/images/AboutUs_op.jpeg"
+            src={ophelia}
             alt="Ophelia"
             className="w-25 h-40 rounded-lg shadow-lg"
           />

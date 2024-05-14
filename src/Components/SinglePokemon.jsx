@@ -35,7 +35,7 @@ function SinglePokemon() {
     );
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 h-screen">
       <div className="bg-white bg-opacity-80 shadow-lg rounded-lg p-5">
         <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
           <img
