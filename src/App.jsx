@@ -5,7 +5,7 @@ import PokemonList from "./Components/PokemonList";
 import SinglePokemon from "./Components/SinglePokemon";
 import AboutUs from "./Components/AboutUs.jsx";
 import Footer from "./Components/Footer";
-import Fighterspage from "./Components/FightersPage.jsx";
+import FightersPage from "./Components/FightersPage.jsx";
 import LandingPage from "./Components/LandingPage.jsx"; // Move this import here
 import "./index.css";
 import Image from "./assets/images/pokemonNew.webp";
@@ -34,7 +34,7 @@ function App() {
         <Route path="/pokemon/:pokemonId" element={<SinglePokemon />} />
         <Route
           path="/battle"
-          element={<Fighterspage selectedPokemon={selectedPokemon} />}
+          element={<FightersPage selectedPokemon={selectedPokemon} />}
         />
         <Route path="/leaderBoard" element={<LeaderBoard />} />
         <Route path="/about-us" element={<AboutUs />} />
