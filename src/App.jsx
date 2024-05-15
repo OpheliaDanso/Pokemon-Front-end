@@ -5,8 +5,8 @@ import PokemonList from "./Components/PokemonList";
 import SinglePokemon from "./Components/SinglePokemon";
 import AboutUs from "./Components/AboutUs.jsx";
 import Footer from "./Components/Footer";
-import Fighterspage from "./Components/Fighterspage.jsx";
-import LandingPage from "./Components/Landingpage.jsx"; // Move this import here
+import Fighterspage from "./Components/FightersPage.jsx";
+import LandingPage from "./Components/LandingPage.jsx"; // Move this import here
 import "./index.css";
 import Image from "./assets/images/pokemonNew.webp";
 import LeaderBoard from "./Components/LeaderBoard.jsx";
