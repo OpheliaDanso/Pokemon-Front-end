@@ -36,7 +36,7 @@ function App() {
           path="/battle"
           element={<Fighterspage selectedPokemon={selectedPokemon} />}
         />
-        <Route path="/leaderboard" element={<LeaderBoard />} />
+        <Route path="/leaderBoard" element={<LeaderBoard />} />
         <Route path="/about-us" element={<AboutUs />} />
       </Routes>
       <Footer />
