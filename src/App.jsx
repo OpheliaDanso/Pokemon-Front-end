@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
-import PokemonList from "./Components/Pokemonlist.jsx";
-import SinglePokemon from "./Components/Singlepokemon.jsx";
+import PokemonList from "./Components/PokemonList.jsx";
+import SinglePokemon from "./Components/SinglePokemon.jsx";
 import AboutUs from "./Components/AboutUs.jsx";
 import Footer from "./Components/Footer";
-import FightersPage from "./Components/Fighterspage.jsx";
-import LandingPage from "./Components/Landingpage.jsx"; // Move this import here
+import FightersPage from "./Components/Fighterspage";
+import LandingPage from "./Components/LandingPage.jsx"; // Move this import here
 import Image from "./assets/images/pokemonNew.webp";
-import LeaderBoard from "./Components/Leaderboard.jsx";
+import LeaderBoard from "./Components/LeaderBoard.jsx";
 import { useState } from "react";
 import "./index.css";
 
