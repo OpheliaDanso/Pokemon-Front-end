@@ -1,5 +1,3 @@
-import React from "react";
-
 function AboutUs() {
   return (
     <div className="flex flex-col items-center px-4">

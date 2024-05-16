@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PokemonImage from "../assets/images/pokemonNew.webp";
 import logo from "../assets/images/pokemon_PNG98.png";
 import { Link, useNavigate } from "react-router-dom";
