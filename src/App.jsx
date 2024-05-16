@@ -7,7 +7,7 @@ import Footer from "./Components/Footer";
 import FightersPage from "./Components/Fighterspage";
 import LandingPage from "./Components/Landingpage"; // Move this import here
 import Image from "./assets/images/pokemonNew.webp";
-import LeaderBoard from "./Components/LeaderBoard.jsx";
+import LeaderBoard from "./Components/Leaderboard";
 import { useState } from "react";
 import "./index.css";
 
